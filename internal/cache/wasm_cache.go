@@ -68,6 +68,9 @@ type WASMCache struct {
 // A zero or negative ttl uses DefaultWASMCacheTTL (72 hours).
 // diag may be nil; if provided, all hits and misses are recorded.
 func NewWASMCache(manager *Manager, ttl time.Duration, diag *Diagnostics) *WASMCache {
+	if manager == nil {
+		panic("cache: NewWASMCache called with nil manager")
+	}
 	if ttl <= 0 {
 		ttl = DefaultWASMCacheTTL
 	}
